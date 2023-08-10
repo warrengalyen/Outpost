@@ -5,8 +5,16 @@
 > Experimental app with RSC's using the Next.js App Router
 
 ### Running the app
-Run Next app: `npx run dev`
+Run the app in development mode:
 
-Run Storybook:
-`npm run tailwind` (runs script to create build file for tailwind)
+    `npx run dev`
+
+Storybook:
+
+1. Run the tailwind build script to create an output file for tailwind classes
+
+   `npm run tailwind`
+
+2. Run Storybook
+3. 
 `npm run storybook`
