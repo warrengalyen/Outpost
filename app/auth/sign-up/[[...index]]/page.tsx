@@ -1,10 +1,11 @@
-"use client";
+import SignInWrapper from "@/components/sign-in";
 
-import { routes } from "@/lib/routes";
-import { SignUp } from "@clerk/nextjs";
-
-const SignUpPage = () => (
-  <SignUp path={routes.signUp} routing="path" signInUrl={routes.signIn} />
-);
+const SignUpPage = () => {
+  return (
+    <>
+      <SignInWrapper />
+    </>
+  );
+};
 
 export default SignUpPage;
