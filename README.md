@@ -5,6 +5,7 @@
 > Experimental app with RSC's using the Next.js App Router
 
 ### Running the app
+
 Run the app in development mode:
 
     `npx run dev`
@@ -16,5 +17,10 @@ Storybook:
    `npm run tailwind`
 
 2. Run Storybook
-3. 
-`npm run storybook`
+
+   `npm run storybook`
+
+## Drizzle Kit
+
+`npx drizzle-kit generate:mysql` - Generate new schema
+`npx drizzle-kit up:mysql` - Push to PlanetScale
