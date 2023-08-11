@@ -15,14 +15,14 @@ export default async function StorefrontLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const addStore = await db.insert(products).values({
-    id: 2,
-    name: "test",
-    price: "100",
-    description: "test",
-    inventory: "1",
-    storeId: 1,
-  });
+  // const addStore = await db.insert(products).values({
+  //   id: 2,
+  //   name: "test",
+  //   price: "100",
+  //   description: "test",
+  //   inventory: "1",
+  //   storeId: 1,
+  // });
   const Myproducts = await db.select().from(products);
   console.log(Myproducts);
 

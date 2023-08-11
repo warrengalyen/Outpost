@@ -1,4 +1,4 @@
-CREATE TABLE `products` (
+CREATE TABLE IF NOT EXISTS `products` (
 	`id` serial AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	`name` text,
 	`price` decimal,
@@ -7,7 +7,7 @@ CREATE TABLE `products` (
 	`store_id` int
 );
 --> statement-breakpoint
-CREATE TABLE `stores` (
+CREATE TABLE IF NOT EXISTS `stores` (
 	`id` serial AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	`store_name` text
 );
