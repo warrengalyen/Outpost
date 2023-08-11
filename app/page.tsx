@@ -1,5 +1,6 @@
 "use client";
 
+import { SlideShow } from "@/components/slideshow";
 import { Button } from "@/components/ui/button";
 
 // const inter = Inter({ subsets: ['latin'] })
@@ -7,10 +8,7 @@ import { Button } from "@/components/ui/button";
 export default function Home() {
   return (
     <>
-      <Button variant="default" size="default">
-        Shop now!
-      </Button>
-      <h1>Hello</h1>
+      <SlideShow />
     </>
   );
 }
