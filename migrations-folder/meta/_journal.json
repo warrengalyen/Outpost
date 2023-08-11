@@ -5,37 +5,9 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1691771080659,
-      "tag": "0000_third_hemingway",
+      "when": 1691779547379,
+      "tag": "0000_remarkable_vindicator",
       "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1691771972599,
-      "tag": "0001_faithful_proteus",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1691772008185,
-      "tag": "0002_cloudy_amazoness",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1691772235560,
-      "tag": "0003_lowly_morlocks",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1682156912896,
-      "tag": "0004_tasty_twizzler",
-      "breakpoints": false
     }
   ]
 }
