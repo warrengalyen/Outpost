@@ -12,15 +12,18 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@planetscale/database": "^1.10.0",
     "@types/node": "20.4.9",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.14",
     "class-variance-authority": "^0.5.2",
     "clsx": "^1.2.1",
+    "drizzle-orm": "^0.28.2",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.13",
     "lucide-react": "^0.263.1",
+    "mysql2": "^3.6.0",
     "next": "13.4.13",
     "postcss": "8.4.27",
     "react": "18.2.0",
@@ -38,6 +41,7 @@
     "@storybook/nextjs": "^7.0.6",
     "@storybook/react": "^7.0.6",
     "@storybook/testing-library": "^0.0.14-next.2",
+    "drizzle-kit": "^0.19.12",
     "eslint-plugin-storybook": "^0.6.11",
     "storybook": "^7.0.6",
     "tailwindcss-animate": "^1.0.5"
