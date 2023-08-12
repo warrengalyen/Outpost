@@ -13,4 +13,4 @@ const connection = connect({
 export const db = drizzle(connection);
 
 // syncs the migrations folder to PlanetScale
-migrate(db as any, { migrationsFolder: "./migrations-folder" });
+// migrate(db as any, { migrationsFolder: "./migrations-folder" });
