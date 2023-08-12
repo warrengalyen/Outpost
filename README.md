@@ -1,8 +1,7 @@
 ## Outpost
 
-> Work in Progress
->
-> Experimental app with RSC's using the Next.js App Router
+> **Warning**
+> This app is a work in progress and shouldn't be considered production ready. It uses new technologies that are yet to be stable such as the Next 13 App Router with RSC's and Drizzle ORM.
 
 ### Running the app
 
