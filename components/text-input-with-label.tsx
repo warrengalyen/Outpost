@@ -15,8 +15,8 @@ export const TextInputWithLabel = ({
   id: string;
   type: string;
   inputType?: "input" | "textarea";
-  state: Record<string, string>;
-  setState: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+  state: Record<string, unknown>;
+  setState: React.Dispatch<React.SetStateAction<any>>;
   [x: string]: unknown;
 }) => {
   return (
@@ -28,7 +28,10 @@ export const TextInputWithLabel = ({
           id={id}
           value={state[id] ? String(state[id]) : ""}
           onChange={(e) =>
-            setState((prev) => ({ ...prev, [id]: e.target.value }))
+            setState((prev: Record<string, string>) => ({
+              ...prev,
+              [id]: e.target.value,
+            }))
           }
           {...delegated}
         />
@@ -39,7 +42,10 @@ export const TextInputWithLabel = ({
           id={id}
           value={state[id] ? String(state[id]) : ""}
           onChange={(e) =>
-            setState((prev) => ({ ...prev, [id]: e.target.value }))
+            setState((prev: Record<string, string>) => ({
+              ...prev,
+              [id]: e.target.value,
+            }))
           }
           {...delegated}
         />
