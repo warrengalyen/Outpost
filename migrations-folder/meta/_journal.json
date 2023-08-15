@@ -29,6 +29,13 @@
       "when": 1692024802846,
       "tag": "0003_acoustic_inertia",
       "breakpoints": false
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1692107891361,
+      "tag": "0004_fast_longshot",
+      "breakpoints": false
     }
   ]
 }
