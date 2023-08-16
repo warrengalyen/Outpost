@@ -18,9 +18,9 @@ export default function Table(
                       if (i === 0) {
                         return (
                           <th
-                            key={columnName}
                             scope="col"
                             className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-primary sm:pl-6"
+                            key={i}
                           >
                             {columnName}
                           </th>
@@ -28,9 +28,9 @@ export default function Table(
                       }
                       return (
                         <th
-                          key={columnName}
                           scope="col"
                           className="px-3 py-3.5 text-left text-sm font-semibold text-primary"
+                          key={i}
                         >
                           {columnName}
                         </th>
