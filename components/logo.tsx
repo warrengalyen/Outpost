@@ -1,5 +1,7 @@
-import { Heading } from "./ui/heading";
-
 export const Logo = () => {
-  return <Heading size="h2">Outpost</Heading>;
+  return (
+    <h2 className="scroll-m-20 text-2xl md:text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+      Outpost
+    </h2>
+  );
 };
