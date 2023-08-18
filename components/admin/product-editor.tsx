@@ -2,7 +2,7 @@
 
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { TextInputWithLabel } from "../text-input-with-label";
-import { AccountHeading } from "./account-heading";
+import { HeadingAndSubheading } from "./heading-and-subheading";
 import { Product } from "@/db/schema";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
@@ -100,7 +100,7 @@ export const ProductEditor = (props: {
 
   return (
     <>
-      <AccountHeading
+      <HeadingAndSubheading
         heading={
           props.productStatus === "new-product"
             ? "Create a new product"
