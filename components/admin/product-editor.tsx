@@ -2,9 +2,6 @@
 
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { TextInputWithLabel } from "../text-input-with-label";
-import { HeadingAndSubheading } from "./heading-and-subheading";
-import { ProductImageUploader } from "./product-image-uploader";
-import { ProductImages } from "@/lib/types";
 import { Product } from "@/db/schema";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
@@ -15,6 +12,9 @@ import {
 } from "@/lib/routes";
 import { createProduct } from "@/lib/apiTypes";
 import { toast } from "../ui/use-toast";
+import { HeadingAndSubheading } from "./heading-and-subheading";
+import { ProductImageUploader } from "./product-image-uploader";
+import { ProductImages } from "@/lib/types";
 
 const defaultValues = {
   name: "",
@@ -37,8 +37,6 @@ export const ProductEditor = (props: {
   const [formValues, setFormValues] = useState<Omit<Product, "id" | "storeId">>(
     props.initialValues ?? defaultValues
   );
-
-  console.log([...(props.initialValues?.images as []), ...(newImages ?? [])]);
 
   const dismissModal = useCallback(() => {
     if (props.displayType === "modal") {
@@ -143,17 +141,19 @@ export const ProductEditor = (props: {
             state={formValues}
             setState={setFormValues}
           />
-          <ProductImageUploader
-            product={
-              props.initialValues as Omit<Product, "images"> & {
-                images: ProductImages[];
+          {props.productStatus === "existing-product" && (
+            <ProductImageUploader
+              product={
+                props.initialValues as Omit<Product, "images"> & {
+                  images: ProductImages[];
+                }
               }
-            }
-            newImages={newImages}
-            setNewImages={setNewImages}
-            imagesToDelete={imagesToDelete}
-            setImagesToDelete={setImagesToDelete}
-          />
+              newImages={newImages}
+              setNewImages={setNewImages}
+              imagesToDelete={imagesToDelete}
+              setImagesToDelete={setImagesToDelete}
+            />
+          )}
           <div className="grid grid-cols-2 gap-4">
             <TextInputWithLabel
               id="price"
