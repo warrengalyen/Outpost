@@ -8,6 +8,7 @@ export default authMiddleware({
     "/seller(.*)",
     "/products(.*)",
     "/auth(.*)",
+    "/api/uploadthing",
   ],
 });
 export const config = {

@@ -13,6 +13,10 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        antiques:
+          "url('https://uploadthing.com/f/1b2af289-1633-45d7-b703-fda04c4e06c9_photo-1518674660708-0e2c0473e68e.jpg')",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

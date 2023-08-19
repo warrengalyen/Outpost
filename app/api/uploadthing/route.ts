@@ -1,8 +1,7 @@
-/** app/api/uploadthing/route.ts */
+import { createNextRouteHandler } from "uploadthing/next";
 import { ourFileRouter } from "./core";
-import { createNextRouteHandler } from "uploadthing/server";
 
-// Export routes for Next App Router (/pages/api support coming soon!)
-export const { POST } = createNextRouteHandler({
+// Export routes for Next App Router
+export const { GET, POST } = createNextRouteHandler({
   router: ourFileRouter,
 });
