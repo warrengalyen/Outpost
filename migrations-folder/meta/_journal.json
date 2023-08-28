@@ -43,6 +43,13 @@
       "when": 1692371368602,
       "tag": "0005_fine_dreaming_celestial",
       "breakpoints": false
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1693234724466,
+      "tag": "0006_stale_midnight",
+      "breakpoints": false
     }
   ]
 }
