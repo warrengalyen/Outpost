@@ -50,6 +50,13 @@
       "when": 1693234724466,
       "tag": "0006_stale_midnight",
       "breakpoints": false
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1693422303278,
+      "tag": "0007_parallel_marauders",
+      "breakpoints": false
     }
   ]
 }
