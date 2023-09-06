@@ -6,6 +6,12 @@ export type ProductImages = {
   url: string;
 };
 
+export type CheckoutItem = {
+  id: number;
+  price: number;
+  qty: number;
+};
+
 export type CartItem = { id: number; qty: number };
 
 export type CartLineItemDetails = Omit<Product, "description" | "images"> & {
