@@ -15,6 +15,7 @@ Key features:
 - Planetscale MySQL database with Drizzle ORM
 - UploadThing for typesafe file uploads (e.g., product images)
 - User authentication with Clerk
+- Stripe Connect integration for marketplace payments (including platform fees and seller payouts)
 
 ## Running the app
 
