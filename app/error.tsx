@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import Link from "next/link";
 
-export default function ProductPageError(props: {
+export default function GlobalError(props: {
   error: Error;
   reset: () => void;
 }) {
