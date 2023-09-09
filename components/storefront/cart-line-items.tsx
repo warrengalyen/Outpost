@@ -28,7 +28,11 @@ export const CartLineItems = (props: {
           <TableHead>Name</TableHead>
           {props.variant === "cart" ? <TableHead>Price</TableHead> : null}
           <TableHead>Quantity</TableHead>
-          <TableHead>Total</TableHead>
+          <TableHead
+            className={cn(props.variant === "checkout" && "text-right")}
+          >
+            Total
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -64,7 +68,9 @@ export const CartLineItems = (props: {
                 )}
               </TableCell>
               {props.variant === "cart" ? (
-                <TableCell>
+                <TableCell
+                  className={cn(props.variant === "checkout" && "text-right")}
+                >
                   {currencyFormatter(Number(product.price))}
                 </TableCell>
               ) : null}
