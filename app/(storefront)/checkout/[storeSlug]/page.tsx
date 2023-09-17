@@ -1,107 +1,146 @@
-import { createPaymentIntent } from "@/server-actions/stripe/payment";
-import CheckoutWrapper from "../components/checkout-wrapper";
-import { cookies } from "next/headers";
-import { getCart } from "@/server-actions/get-cart-details";
+import { Heading } from "@/components/ui/heading";
+import { getPaymentIntentDetails } from "@/server-actions/stripe/payment";
+import { Verification } from "./components/verification";
+import { OrderConfirmationLineItems } from "./components/order-confirmation-line-items";
 import { db } from "@/db/db";
-import { payments, products, stores } from "@/db/schema";
-import { eq } from "drizzle-orm";
-import { CheckoutItem } from "@/lib/types";
-import { CartLineItems } from "@/components/storefront/cart-line-items";
-import { InfoCard } from "@/components/admin/info-card";
-import { AlertCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { routes } from "@/lib/routes";
-import Link from "next/link";
-import { hasConnectedStripeAccount } from "@/server-actions/stripe/account";
+import { products, stores } from "@/db/schema";
+import { eq, inArray } from "drizzle-orm";
+import { CheckoutItem, OrderConfirmationDetails } from "@/lib/types";
+import { Check } from "lucide-react";
 
-export default async function Page({
-  params,
-}: {
-  params: { storeSlug: string };
-}) {
-  const cartId = cookies().get("cartId")?.value;
-  const { cartItems, cartItemDetails } = await getCart(Number(cartId));
-
-  const store = await db
-    .select({
-      storeId: stores.id,
-      stripeAccountId: payments.stripeAccountId,
-    })
-    .from(stores)
-    .leftJoin(payments, eq(payments.storeId, stores.id))
-    .where(eq(stores.slug, params.storeSlug));
-
-  const storeId = Number(store[0].storeId);
-  const storeStripeAccountId = store[0].stripeAccountId;
-
-  const storeProducts = await db
+const getProducts = async (checkoutItems: CheckoutItem[]) => {
+  return (await db
     .select({
       id: products.id,
-      price: products.price,
+      name: products.name,
+      images: products.images,
+      storeId: products.storeId,
     })
     .from(products)
-    .leftJoin(stores, eq(products.storeId, stores.id))
-    .where(eq(stores.id, storeId));
+    .where(
+      inArray(
+        products.id,
+        checkoutItems.map((item) => item.id)
+      )
+    )) as OrderConfirmationDetails[];
+};
 
-  // @TODO: check if items from this store are in the cart
-
-  const detailsOfProductsInCart = cartItems
-    .map((item) => {
-      const product = storeProducts.find((p) => p.id === item.id);
-      const priceAsNumber = Number(product?.price);
-      return {
-        id: item.id,
-        price: priceAsNumber,
-        qty: item.qty,
-      };
+const getSellerName = async (storeSlug: string) => {
+  return await db
+    .select({
+      name: stores.name,
     })
-    .filter(Boolean) as CheckoutItem[];
+    .from(stores)
+    .where(eq(stores.slug, storeSlug));
+};
 
-  if (
-    !storeStripeAccountId ||
-    !(await hasConnectedStripeAccount(storeId, true))
-  ) {
-    return (
-      <InfoCard
-        heading="Online payments not setup"
-        subheading="This seller does not have online payments setup yet. Please contact the seller directly to submit your order."
-        icon={<AlertCircle size={24} />}
-        button={
-          <Link href={routes.cart}>
-            <Button>Return to cart</Button>
-          </Link>
-        }
-      />
-    );
-  }
-
-  if (
-    !storeProducts.length ||
-    isNaN(storeId) ||
-    !detailsOfProductsInCart.length
-  )
-    throw new Error("Store not found");
-
-  const paymentIntent = createPaymentIntent({
-    items: detailsOfProductsInCart,
-    storeId,
+export default async function OrderConfirmation({
+  params,
+  searchParams,
+}: {
+  params: {
+    storeSlug: string;
+  };
+  searchParams: {
+    payment_intent: string;
+    payment_intent_client_secret: string;
+    redirect_status: "success";
+    delivery_postal_code: string;
+  };
+}) {
+  const { paymentDetails, isVerified } = await getPaymentIntentDetails({
+    paymentIntentId: searchParams.payment_intent,
+    storeSlug: params.storeSlug,
+    deliveryPostalCode: searchParams.delivery_postal_code,
   });
 
-  // providing the paymentIntent to the CheckoutWrapper to work around Nextjs bug with authentication not passed to server actions when called in client component
+  const checkoutItems = JSON.parse(paymentDetails?.metadata?.items ?? "[]");
+
+  let products: OrderConfirmationDetails[] = [];
+  let sellerDetails;
+  if (isVerified) {
+    sellerDetails = (await getSellerName(params.storeSlug))[0];
+    products = await getProducts(checkoutItems);
+  }
+
   return (
-    <CheckoutWrapper
-      detailsOfProductsInCart={detailsOfProductsInCart}
-      paymentIntent={paymentIntent}
-      storeStripeAccountId={storeStripeAccountId}
-      cartLineItems={
-        <CartLineItems
-          variant="checkout"
-          cartItems={cartItems}
-          products={
-            cartItemDetails?.filter((item) => item.storeId === storeId) ?? []
-          }
-        />
-      }
-    />
+    <div className="mt-8">
+      {isVerified ? (
+        <div>
+          <Heading size="h2">
+            <div className="flex md:flex-row flex-col items-start md:items-center justify-start gap-4 md:gap-2">
+              <div className="border-2 border-green-600 text-green-600 bg-transparent rounded-full h-10 w-10 flex items-center justify-center">
+                <Check className="text-green-600" size={26} />
+              </div>
+              <span>
+                Thanks for your order,{" "}
+                <span className="capitalize">
+                  {paymentDetails?.shipping?.name?.split(" ")[0]}
+                </span>
+                !
+              </span>
+            </div>
+          </Heading>
+          <p className="text-muted-foreground mt-4">
+            Your payment confirmation ID is #
+            {searchParams.payment_intent.slice(3)}
+          </p>
+          <div className="flex flex-col gap-4 mt-8">
+            <div className="p-6 bg-secondary border border-border rounded-md">
+              <Heading size="h3">What&apos;s next?</Heading>
+              <p>
+                Our warehouse team is busy preparing your order. You&apos;ll
+                receive an email once your order ships.
+              </p>
+            </div>
+            <div className="lg:grid grid-cols-2 gap-4 flex flex-col">
+              <div className="p-6 bg-secondary border border-border rounded-md sm:grid grid-cols-3 flex flex-col gap-4">
+                <div className="sm:col-span-2">
+                  <div className="mb-2">
+                    <Heading size="h4">Shipping Address</Heading>
+                  </div>
+                  <p>{paymentDetails?.shipping?.name}</p>
+                  <p className="mb-3">{paymentDetails?.receipt_email}</p>
+                  <p>{paymentDetails?.shipping?.address?.line1}</p>
+                  <p>{paymentDetails?.shipping?.address?.line2}</p>
+                  <p>
+                    {paymentDetails?.shipping?.address?.city},{" "}
+                    {paymentDetails?.shipping?.address?.postal_code}
+                  </p>
+                  <p>
+                    {paymentDetails?.shipping?.address?.state},{" "}
+                    {paymentDetails?.shipping?.address?.country}
+                  </p>
+                </div>
+                <div>
+                  <div className="mb-2">
+                    <Heading size="h4">Seller Details</Heading>
+                  </div>
+                  <p>{sellerDetails?.name}</p>
+                </div>
+              </div>
+              <div className="p-6 border border-border bg-secondary rounded-md">
+                <div className="mb-2">
+                  <Heading size="h4">Order Details</Heading>
+                </div>
+                <OrderConfirmationLineItems
+                  checkoutItems={checkoutItems}
+                  products={products}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <Heading size="h2">Thanks for your order!</Heading>
+          <p className="mb-4">
+            Please enter your delivery postcode below to view your order
+            details.
+          </p>
+          <Verification />
+        </div>
+      )}
+    </div>
   );
 }
