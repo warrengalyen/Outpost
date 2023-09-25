@@ -10,8 +10,8 @@ export default authMiddleware({
     "/products(.*)",
     "/auth(.*)",
     "/checkout(.*)",
-    "/api/uploadthing",
     "/api/stripe/(.*)",
+    "/api/uploadthing",
   ],
 });
 export const config = {
