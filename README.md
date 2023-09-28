@@ -17,6 +17,11 @@ Key features:
 - User authentication with Clerk
 - Stripe Connect integration for marketplace payments (including platform fees and seller payouts)
 
+## Demo
+
+To demo the checkout experience, checkout with a test card number such as `4242 4242 4242 4242` and use any future date for the expiration and any 3 digits for the CVC. You will only be able to checkout with products from sellers that have a Stripe account connected to their store (such as [Toy Box](https://outpost.mechanikadesign.com/products?seller=toy-box)). You can also create your own seller account and connect it to Stripe for the full experience.
+
+
 ## Running the app
 
 Run the app in development mode:
