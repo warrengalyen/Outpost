@@ -1,7 +1,7 @@
 ## Outpost
 
 > **Warning**
-> This app is a work in progress and shouldn't be considered production ready. It uses new technologies that are yet to be stable such as the Server Actions and Drizzle ORM.
+> This app is a work in progress and shouldn't be considered production ready. It uses new technologies that are yet to be stable such as Server Actions and Drizzle ORM.
 
 ## About
 
@@ -26,28 +26,28 @@ To demo the checkout experience, checkout with a test card number such as `4242 
 
 Follow the below steps to run the app locally:
 
-1. Create a database in Planetscale
-2. Create a local .env file with the following variables as per the .env.example
-3. Run `npm install`
-4. Generate a migration with `npx drizzle-kit generate:mysql`
-5. Push to the migration to PlanetScale with `npx drizzle-kit up:mysql`. If this fails (or nothing happens), you can alternatively run the SQL queries that were generated in the `migrations-folder` from the previous step manually in the PlanetScale console.
-6. Run `npm run dev` to open the app in development mode
+1. Create a database in PlanetScale.
+2. Create a local `.env` file with the variables as per the `.env.example` file.
+3. Run `npm install`.
+4. Generate a migration with `npx drizzle-kit generate:mysql`. This creates a new folder called `migrations-folder` in the root which contains the SQL queries to create the database tables.
+5. Push the migration to PlanetScale with `npx drizzle-kit up:mysql`. If this fails (or nothing happens) and your PlanetScale database isn't updated with all the tables, run the SQL queries that were generated in the `migrations-folder` from the previous step manually in the PlanetScale console.
+6. Run `npm run dev` to open the app in development mode.
 
 That's it. You should now be able to access the app at `http://localhost:3000`.
 
 ### Notes
 
-- When generating the migration for the first time with Drizzle, ensure that the `migrations-folder` is empty or doesn't exist.
+- When generating the migration for the first time with Drizzle, ensure that the `migrations-folder` in the root is empty or doesn't exist.
 
 ### Storybook
 
 Storybook has been added to this app, however, hasn't been actively worked on since the initial creation of the app. Regardless, it can be ran using the following commands:
 
-1. Run the tailwind build script to create an output file for tailwind classes
+1. Run the tailwind build script to create an output file for tailwind classes (after it's ran and completed, you may have to 'kill' the terminal (ie `ctrl + c`) to stop the process if it doesn't automatically stop).
 
    `npm run tailwind`
 
-2. Run Storybook
+2. Run Storybook (this will use the tailwind output file created in the previous step and run on `http://localhost:6006`)
 
    `npm run storybook`
 
