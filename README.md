@@ -24,6 +24,8 @@ To demo the checkout experience, checkout with a test card number such as `4242 
 > **Note**
 > Live demo no longer works as Planetscale dropped their free tier for mySQL hosting. I've yet to migrate to a new platform.
 
+![outpost_homepage_1](https://github.com/warrengalyen/Outpost/assets/16408188/b3ac5e3f-0319-4077-9993-0bbc94be683e)
+![outpost_homepage_2](https://github.com/warrengalyen/Outpost/assets/16408188/36889fc0-dd31-4075-aa21-65b2c7b89078)
 
 ## Running the app
 
