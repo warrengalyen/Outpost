@@ -64,13 +64,13 @@ const menuItems: MenuItems = [
     group: "selling",
   },
   {
-    name: "Your purchases",
-    href: singleLevelNestedRoutes.account["your-purchases"],
-    group: "buying",
-  },
-  {
     name: "Payments",
     href: singleLevelNestedRoutes.account.payments,
     group: "selling",
+  },
+  {
+    name: "Your purchases",
+    href: singleLevelNestedRoutes.account["your-purchases"],
+    group: "buying",
   },
 ];

@@ -72,7 +72,7 @@ export default async function Cart() {
               key={i}
               className="flex items-center border-b border-border pb-2 gap-4 flex-nowrap overflow-auto"
             >
-              <p>
+              <p className="font-semibold">
                 {
                   cartItemDetails?.find((item) => item.storeId === storeId)
                     ?.storeName
